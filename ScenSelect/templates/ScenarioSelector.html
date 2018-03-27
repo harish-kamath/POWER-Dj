@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<title>POWER - Scenarios</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1 {font-family: "Raleway", sans-serif; font-size: 1.5em;min-width: 100%;}
+body, html {background-color: #8DD1CE;height: 100%; text-align: center;color: #FFEEEE; overflow: hidden}
+body, hr{width: 75%; border-color: #FFFFFF}
+button{background-color: #357e7b; color: ##262626;font-family: "Raleway", sans-serif;
+font-size: 0.7em;margin: 0; min-width: 40%; min-height: 3.5em; border: none; padding-left: 1%;
+margin-bottom: 40px; color: #FFEEEE;}
+
+button:disabled {
+    background: #b7e1e0;
+    color: #000000;
+}
+
+</style>
+<body>
+  <h1>POWER</h1>
+{% if user.is_authenticated %}
+  <a href="{% url 'logout' %}" style='text-decoration: none; color: #FFDDDD;position: absolute; left: 20px; top: 30px;'>Logout</a>
+
+  <hr>
+  <h2> WELCOME {{user.first_name|capfirst}}!</h2>
+  <h2> Select a Scenario </hr>
+  <hr style="width:25%;">
+  <button onclick="window.location='ScenarioOne.html'"> Scenario One </button>
+  <button> Scenario Two </button>
+  <br>
+  <button disabled> Scenario Three </button>
+  <button disabled> Scenario Four </button>
+  <br>
+  <button> Scenario Five </button>
+  <button disabled> Scenario Six </button>
+  <br>
+
+  {% else %}
+<h3> You are not logged in! Please login using the link below </h3>
+<a href="{% url 'login' %}"style='text-decoration: none; color: #FFEEEE;'>Login</a>
+  {% endif %}
+</body>
+</html>

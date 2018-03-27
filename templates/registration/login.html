@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<title>Welcome to POWER!</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1 {font-family: "Raleway", sans-serif; font-size: 3.5em;min-width: 100%;}
+body, html {background-color: #8DD1CE;height: 100%; text-align: center;color: #FFEEEE; overflow: hidden}
+body, hr{width: 45%; border-color: #FFFFFF}
+input[type=text]{background-color: #dbf0ef; color: ##262626;font-family: "Raleway", sans-serif;
+font-size: 0.4em;margin: 0; min-width: 40%; min-height: 3.5em; border: none; padding-left: 1%;}
+input[type=password]{background-color: #dbf0ef; color: ##262626;font-family: "Raleway", sans-serif;
+font-size: 0.4em;margin: 0; min-width: 40%; min-height: 3.5em; border: none; padding-left: 1%;}
+button{background-color: #357e7b; color: #FFEEEE;font-family: "Raleway", sans-serif;
+font-size: 0.6em;margin: 0; min-width: 10%; min-height: 2em; border: none;}
+
+
+</style>
+<body>
+  <h1>POWER</h1>
+  <hr>
+  <form method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="USERNAME">
+    <br>
+    <input type="password" name="password" placeholder="PASSWORD">
+    <br>
+    <button type="submit">LOGIN</button>
+  </form>
+</body>
+</html>
