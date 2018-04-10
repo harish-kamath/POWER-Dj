@@ -1,0 +1,22 @@
+HOW TO PUSH TO HEROKU:
+
+cd to project directory.
+
+
+$ source activate
+
+To get into the virtualenv
+
+
+
+$ git add .
+$ git commit -m "Message"
+$ git push heroku master
+
+To push to the server
+
+
+
+$ heroku open
+
+To open the webpage.
