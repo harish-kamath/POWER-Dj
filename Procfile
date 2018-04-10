@@ -1,0 +1,1 @@
+web: gunicorn POWER_Dj.wsgi
