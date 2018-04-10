@@ -10,4 +10,5 @@ urlpatterns = [
 #    url(r'^$', views.home, name='loginForm'),
     url(r'accounts/', include('django.contrib.auth.urls')),
     url(r'^$', views.scenario_select, name='scen_select'),
+    url(r'scenarios/',views.scenario_one,name='scen_one')
 ]

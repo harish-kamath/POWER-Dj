@@ -9,3 +9,6 @@ def home(request):
 
 def scenario_select(request):
     return render(request, 'ScenarioSelector.html')
+
+def scenario_one(request):
+    return render(request,'ScenarioOne.html')
