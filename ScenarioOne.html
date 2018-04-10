@@ -1,0 +1,550 @@
+<!doctype html>
+<head>
+	<script>
+	var numQuestions = 13;
+	var scenarioNum = 1;
+	var currProgress = 0;
+	var pointCount = 0;
+	</script>
+	<meta charset="utf-8">
+	<title>POWER Scenario</title>
+	<link href="jquery-ui.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<style>
+	body{
+		font-family: "Trebuchet MS", sans-serif;
+		margin: 0;
+		padding: 0;
+	background: #8DD1CE;
+	}
+
+	.QuestionChoices{
+		height: 15%;
+		text-align: left;
+		left: 0px;
+		width:90%;
+		padding: 10px;
+		padding-bottom: 20px;
+		padding-left: 30px;
+		margin-top: 10px;
+		background-color: #8DD1CE;
+		color: #ffffff;
+	}
+	.ui-progressbar-value {
+		background: LightBlue;
+  }
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	.tabView{
+	}
+
+	.content{
+		height: 35em;
+		overflow: auto;
+	}
+	.ui-tabs{
+		position: absolute;
+		bottom: 0px;
+		top: 50px;
+		width: 100%;
+		min-height: 80%;
+		color: white;
+	background: #8DD1CE;
+
+	}
+	.ui-tabs .ui-tabs-panel{
+		color: white;
+	}
+	.ui-tabs .ui-tabs-nav
+	{
+		background: #355564;
+	}
+	.widget button{
+		-webkit-border-radius: 14;
+		-moz-border-radius: 14;
+		border-radius: 14px;
+		font-family: Arial;
+		color: #ffffff;
+		font-size: 34px;
+		background: #56a879;
+		padding: 9px 20px 10px 20px;
+		text-decoration: none;
+		position:relative;
+		top: 100px;
+		margin-bottom:20px;
+		left: 15px;
+
+	}
+
+#accordion{
+	height: 35em;
+	overflow:auto;
+}
+	#PointsLabel{
+		text-align: center;
+		width:100%;
+		float: left;
+		vertical-align: middle;
+		position:absolute;
+	}
+
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+	</style>
+
+	<script>
+$(document).ready(function(){
+$("#progressbar").css("width","100%");
+$("#progressbar").css("position","absolute");
+$("#progressbar").css("padding","0px");
+$("#progressbar").css("margin","0px");
+$("#progressbar").height(40);
+
+$( "#tabs" ).tabs({
+  show: { effect: "drop", duration: 800 }
+});
+});
+</script>
+
+	<!-- SCRIPT FOR HOME PAGE -->
+	<script>
+	$( function() {
+		$("#accordion").load("Slides/Home/S4.html");
+		$("#accordion").accordion({
+			collapsible: true,
+			header:"h3"
+		});
+		$("#accordion").accordion("refresh");
+	});
+
+	$( document ).click(function() {
+  $( "#stretcher" ).toggle( "slide" );
+});
+	$(document).ready(function(){
+		$( "#progressbar" ).progressbar({
+			value: currProgress
+		});
+		$("#previous-1").hide();
+		var homePages = ["S1.html","S2.html","S3.html","Blank.html"]
+		var homeIndex = 0
+		$("#content-1").load("Slides/Home/S1.html");
+		$("#next-1").click(function() {
+			$("#previous-1").show(500);
+			if(homeIndex < homePages.length-1){
+				homeIndex++;
+				$("#content-1").hide().load("Slides/Home/"+homePages[homeIndex]).fadeIn('700');
+					$("#accordion").accordion("refresh");
+			} else{
+				$("#accordion").accordion("refresh");
+				$( "#tabs" ).tabs({ active: 1 });
+			}
+
+			if(homeIndex == homePages.length-1){
+				$("#accordion").show();
+				$("#content-1").hide();
+			} else{
+				$("#accordion").hide();
+				$("#content-1").show();
+			}
+		});
+		$("#previous-1").click(function() {
+			$("#accordion").accordion("refresh");
+			if(homeIndex > 0){
+				homeIndex--;
+				$("#content-1").hide().load("Slides/Home/"+homePages[homeIndex]).fadeIn('700');
+					$("#accordion").accordion("refresh");
+			}
+			if(homeIndex == 0){
+				$("#previous-1").hide(500);
+			}
+
+			if(homeIndex == homePages.length-1){
+				$("#accordion").show();
+				$("#content-1").hide();
+			} else{
+				$("#accordion").hide();
+				$("#content-1").show();
+			}
+		});
+	});
+	</script>
+
+	<!-- SCRIPT FOR CLINICAL PAGE
+	<script>
+	$( function() {
+		$("#accordion").load("Slides/Clinical/S1.html");
+		$("#accordion").accordion({
+			collapsible: true,
+			header:"h3"
+		});
+
+		var clinicPages = ["S1.html"]
+		var clinicIndex = 0
+		$("#next-2").click(function() {
+			if(clinicIndex < clinicPages.length-1){
+				clinicIndex++;
+				$("#content-2").load("Slides/Clinical/"+clinicPages[clinicIndex]);
+				$("#accordion").accordion("refresh");
+			} else{
+				$("#accordion").accordion("refresh");
+				$( "#tabs" ).tabs({ active: 2 });
+			}
+		});
+		$("#previous-2").click(function() {
+			if(clinicIndex > 0){
+				clinicIndex--;
+				$("#content-2").load("Slides/Clinical/"+homePages[homeIndex]);
+			}
+			else{
+				$("#accordion").accordion("refresh");
+			$( "#tabs" ).tabs({ active: 0 });}
+		});
+
+	});
+	</script>
+-->
+
+	<!-- SCRIPT FOR QUESTIONS PAGE-->
+
+	<script type="text/javascript">
+	var currentQNum = 1
+	var chosenA = 0
+	var answered = []
+	$(document).ready(function(){
+	$("#next-3").hide();
+	$("#submit").hide();
+	$("#return").hide();
+ $("#CorrectAnswer").hide();
+ $("#AnswerExplanation").hide();
+ $("#AnswerPoints").hide();
+
+	$("#1").click(function() {
+		$("#1").css("background-color","#7cbfbc;");
+		$("#2").css("background-color","#8DD1CE;");
+		$("#3").css("background-color","#8DD1CE;");
+		$("#4").css("background-color","#8DD1CE;");
+		chosenA = 1;
+	$("#submit").show(500);
+	});
+	$("#2").click(function() {
+		$("#1").css("background-color","#8DD1CE;");
+		$("#2").css("background-color","#7cbfbc;");
+		$("#3").css("background-color","#8DD1CE;");
+		$("#4").css("background-color","#8DD1CE;");
+		chosenA = 2;
+	$("#submit").show(500);
+	});
+	$("#3").click(function() {
+		$("#1").css("background-color","#8DD1CE;");
+		$("#2").css("background-color","#8DD1CE;");
+		$("#3").css("background-color","#7cbfbc;");
+		$("#4").css("background-color","#8DD1CE;");
+		chosenA= 3;
+	$("#submit").show(500);
+	});
+	$("#4").click(function() {
+		$("#1").css("background-color","#8DD1CE;");
+		$("#2").css("background-color","#8DD1CE;");
+		$("#3").css("background-color","#8DD1CE;");
+		$("#4").css("background-color","#7cbfbc;");
+		chosenA = 4;
+	$("#submit").show(500);
+	});
+	$("#submit").click(function(){
+		$("#1").hide(500);
+		$("#2").hide(500);
+		$("#3").hide(500);
+		$("#4").hide(500);
+		$("#submit").hide(500);
+		$("#QuestionBox").hide(500);
+		$("#next-3").hide(500);
+		$("#previous-3").hide(500);
+		$("#return").show(500);
+		findAnswerInfo(scenarioNum,currentQNum,chosenA);
+	});
+	$("#return").click(function(){
+		$("#1").show(500);
+		$("#2").show(500);
+		$("#3").show(500);
+		$("#4").show(500);
+		$("#submit").show(500);
+		$("#QuestionBox").show(500);
+		$("#next-3").show(500);
+		$("#previous-3").show(500);
+		$("#return").hide(500);
+		$("#AnswerPoints").hide();
+		$("#AnswerExplanation").hide();
+			$("#CorrectAnswer").hide();
+	});
+	$("#next-3").click(function(){
+		if(!(currentQNum == numQuestions)){
+		currentQNum += 1;
+		findQuestionInfo(scenarioNum,currentQNum);
+		if(answered.length < currentQNum){
+			$("#next-3").hide(500);
+		}
+				$("#1").css("background-color","#8DD1CE;");
+				$("#2").css("background-color","#8DD1CE;");
+				$("#3").css("background-color","#8DD1CE;");
+				$("#4").css("background-color","#8DD1CE;");
+				$("#submit").hide(500);
+				chosenA = 0;
+			}
+			else{
+				$("#content-3").hide();
+				$("#FinishedPage").show();
+				$("#next-3").hide(300);
+				$("#submit").hide(300);
+				$("#previous-3").hide(300);
+				$("#done").show(300);
+			}
+	});
+	$("#previous-3").click(function(){
+		if(currentQNum == 1){
+		$( "#tabs" ).tabs({ active: 0 });
+	}
+		else{
+		currentQNum -= 1;
+		findQuestionInfo(scenarioNum,currentQNum);
+		$("#next-3").show(500);
+		$("#1").css("background-color","#8DD1CE;");
+		$("#2").css("background-color","#8DD1CE;");
+		$("#3").css("background-color","#8DD1CE;");
+		$("#4").css("background-color","#8DD1CE;");
+		$("#submit").hide(500);
+		chosenA = 0
+	}
+	});
+});
+	function findQuestionInfo(scen,qNum){
+            $.ajax({
+              method: "GET",
+              url:    "getQuestion.php",
+              data: {"Scenario":scen,"Q":qNum},
+             }).done(function( data ) {
+                var result = $.parseJSON(data);
+								$("#QuestionBox").html(result[0])
+								$("#1").html(result[1])
+								$("#2").html(result[2])
+								$("#3").html(result[3])
+								$("#4").html(result[4])
+								console.log(result[0]);
+          });
+
+}
+function findAnswerInfo(scen,aNum,myA){
+					$.ajax({
+						method: "GET",
+						url:    "getAnswer.php",
+						data: {"Scenario":scen,"A":aNum},
+					 }).done(function( data ) {
+							var result = $.parseJSON(data);
+							console.log(result[(myA-1)*2]);
+							$("#AnswerExplanation").html(result[(myA-1)*2]);
+							$("#AnswerExplanation").show();
+							if(result[8] == myA){
+								$("#CorrectAnswer").show();
+							}
+							if(answered.length < currentQNum){
+								currProgress += 100.0/numQuestions;
+									$( "#progressbar" ).progressbar({
+										value: currProgress
+									});
+							$("#AnswerPoints").html(result[(myA-1)*2+1]+" points!");
+							$("#AnswerPoints").show();
+							pointCount += parseInt(result[(myA-1)*2+1]);
+							$("#PointsLabel").html(pointCount+" points");
+								if(result[8] == myA){
+								answered.push(true);
+							}
+							else{
+								answered.push(false);
+							}
+							}
+							console.log(pointCount);
+				});
+			}
+findQuestionInfo(1,currentQNum);
+
+
+
+  </script>
+</head>
+
+
+
+<body>
+	<div id="progressbar"><div id="PointsLabel">0 points</div></div>
+
+	<!-- Tabs -->
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">Home</a></li>
+			<!--<li><a href="#tabs-2">Clinical Evidence</a></li>-->
+			<li><a href="#tabs-2">Questions</a></li>
+		</ul>
+		<div class="tabView" id="tabs-1">
+			<div class="content" id="content-1">
+				Loading...
+			</div>
+			<div id="accordion" hidden>
+				Loading...
+			</div>
+
+			<div class="widget">
+				<button id="previous-1">Previous</button>
+				<button id="next-1">Next</button>
+			</div>
+		</div>
+		<div class="tabView" id="tabs-2">
+			<!--<div class="content" id = "content-2" style="width:50%; display: inline-table">
+				<div id="accordion">
+					Loading...
+				</div>
+				<div class="widget">
+					<button id="previous-2">Previous</button>
+					<button id="next-2">Next</button>
+				</div>
+			</div>
+		</div>
+		<div class="tabView" id="tabs-3">
+-->
+		 	 <div class="content" id="content-3">
+				 <div id="QuestionBox">Loading...</div>
+				 <button class="QuestionChoices" id="1">Loading...</button>
+				 <button class="QuestionChoices" id="2">Loading...</button>
+				 <button class="QuestionChoices" id="3">Loading...</button>
+				 <button class="QuestionChoices" id="4">Loading...</button>
+				<div id="CorrectAnswer">That was correct!</div>
+				<div id="AnswerExplanation">Loading...</div>
+				<div id="AnswerPoints">Loading...</div>
+		 	 </div>
+			 <div id="FinishedPage" hidden>
+				 <h2>LET’S SUMMARIZE WHAT WE’VE LEARNED WITH
+SOPHIE.</h2>
+
+				 A POWERful physician would have:
+
+<br>
+Utilized the Wong-Baker FACES pain rating scale to monitor Sophie’s pain throughout her ED visit.
+<br>
+
+Quickly administered pain control- ideally a fast-acting medication that can be given without an IV, such
+as intranasal fentanyl.
+
+<br>
+Administered an intranasal medication correctly, by dividing the dose between both nostrils and using a
+nasal atomizer.
+<br>
+
+Recalled that intranasal fentanyl’s onset of action is 5 minutes, with a duration of 60 minutes.
+<br>
+
+Recalled that oral oxycodone’s onset of action is 30 minutes, with a duration of 4 hours.
+
+<br>
+<h3>The most POWERful physicians received XXX total points while treating Sophie. How did YOU do?</h3>
+<br>
+			 </div>
+			<div class="widget">
+				<button id="previous-3">Previous</button>
+				<button id="submit">Submit</button>
+				<button id="next-3">Next</button>
+				<button id="return">Return</button>
+				<button id="done" onclick="window.location='ScenarioSelector.html'" hidden>Done</button>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+	<script src="external/jquery/jquery.js"></script>
+	<script src="jquery-ui.js"></script>
+	<script>
+
+	var availableTags = [
+		"ActionScript",
+		"AppleScript",
+		"Asp",
+		"BASIC",
+		"C",
+		"C++",
+		"Clojure",
+		"COBOL",
+		"ColdFusion",
+		"Erlang",
+		"Fortran",
+		"Groovy",
+		"Haskell",
+		"Java",
+		"JavaScript",
+		"Lisp",
+		"Perl",
+		"PHP",
+		"Python",
+		"Ruby",
+		"Scala",
+		"Scheme"
+	];
+
+	$("#tabs").tabs({
+		activate: function(event, ui) {
+			$("#accordion").accordion("refresh");
+		}
+	});
+
+	$( "#tabs" ).tabs().css({
+		'min-height': '800px',
+		'text-align': 'center',
+		'overflow': 'auto',
+	});
+
+	// Hover states on the static widgets
+	$( "#dialog-link, #icons li" ).hover(
+		function() {
+			$( this ).addClass( "ui-state-hover" );
+		},
+		function() {
+			$( this ).removeClass( "ui-state-hover" );
+		}
+	);
+</script>
+</body>
+</html>
